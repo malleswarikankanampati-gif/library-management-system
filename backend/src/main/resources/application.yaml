@@ -1,0 +1,75 @@
+spring:
+  application:
+    name: backend
+  config:
+    import: "optional:file:./src/main/resources/application-local.yml"
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+            scope:
+              - openid
+              - email
+              - profile
+          microsoft:
+            client-id: ${MICROSOFT_CLIENT_ID}
+            client-secret: ${MICROSOFT_CLIENT_SECRET}
+            redirect-uri: "http://localhost:8080/login/oauth2/code/microsoft"
+            authorization-grant-type: authorization_code
+            client-name: Microsoft
+            provider: azure-ad-provider
+            scope:
+              - openid
+              - email
+              - profile
+        provider:
+          google:
+            issuer-uri: https://accounts.google.com
+          azure-ad-provider:
+            issuer-uri: https://login.microsoftonline.com/${TENANT_ID}/v2.0
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lms
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    # show-sql: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 15MB
+
+#  security:
+#    user:
+#      name: user
+#      password: user
+
+logging:
+  level:
+    root: INFO
+    com.project.lms.backend.util.aop: INFO
+    '[org.springframework.security.oauth2]': DEBUG
+  pattern:
+    console: "%-5level %logger{36} : %msg%n"
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 864000000
+  # token:
+  #   prefix: Bearer
+  # header: Authorization
+
+cors:
+  allowedOrigin: http://localhost:5173
+
+server:
+  url: http://localhost:8080

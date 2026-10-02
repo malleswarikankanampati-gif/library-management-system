@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+* {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #d1d5db;
+  overflow: hidden;
+}
+
+/* Custom Scrollbar Styles (Global) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #ff7f50;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: #ffd1c0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ff6347;
+}
+
+/* 🔒 Hide scrollbars on all major browsers */
+.no-scrollbar {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE 10+ */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Edge */
+}
+
+input:disabled,
+select:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
